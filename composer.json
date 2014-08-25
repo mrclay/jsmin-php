@@ -1,26 +1,34 @@
 {
-	"name": "mrclay/minify",
+	"name": "mrclay/jsmin-php",
 	"type": "library",
-	"description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
-	"homepage": "http://code.google.com/p/minify/",
-	"license": "BSD-3-Clause",
+	"description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessray whitespace from JavaScript files.",
+    "keywords": ["jsmin", "minify", "compress"],
+	"homepage": "https://github.com/mrclay/jsmin-php/",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Stephen Clay",
 			"email": "steve@mrclay.org",
 			"role": "Developer"
-		}
+		},
+        {
+            "name": "Ryan Grove",
+            "email": "ryan@wonko.com",
+            "role": "Developer"
+        }
 	],
 	"support": {
 		"email": "minify@googlegroups.com",
-		"issues": "http://code.google.com/p/minify/issues/list",
-		"wiki": "http://code.google.com/p/minify/w/list"
+		"issues": "https://github.com/mrclay/jsmin-php/issues"
 	},
 	"require": {
-		"php": ">=5.2.1",
+		"php": ">=5.3.0",
 		"ext-pcre": "*"
 	},
+    "require-dev": {
+        "phpunit/phpunit": "4.2"
+    },
 	"autoload": {
-		"classmap": ["min/lib/"]
+        "psr-0": {"JSMin\\": "src/"}
 	}
 }

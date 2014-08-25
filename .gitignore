@@ -1,7 +1,5 @@
-
-# /
-/test
-/docs
 .idea/
 .DS_Store
-vendor
+/vendor
+/composer.lock
+/tests/Resources/*/actual/*
