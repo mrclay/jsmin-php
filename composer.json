@@ -1,7 +1,7 @@
 {
 	"name": "mrclay/jsmin-php",
 	"type": "library",
-	"description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessray whitespace from JavaScript files.",
+	"description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessary whitespace from JavaScript files.",
     "keywords": ["jsmin", "minify", "compress"],
 	"homepage": "https://github.com/mrclay/jsmin-php/",
 	"license": "MIT",

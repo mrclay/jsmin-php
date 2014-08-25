@@ -3,7 +3,7 @@
 namespace JSMin;
 
 /**
-	 * JSMin.php - modified PHP implementation of Douglas Crockford's JSMin.
+ * JSMin.php - modified PHP implementation of Douglas Crockford's JSMin.
  *
  * <code>
  * $minifiedJs = JSMin::minify($js);
@@ -450,7 +450,3 @@ class JSMin {
         return $get;
     }
 }
-
-class UnterminatedStringException extends \Exception {}
-class UnterminatedCommentException extends \Exception {}
-class UnterminatedRegExpException extends \Exception {}
