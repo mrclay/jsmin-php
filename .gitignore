@@ -3,3 +3,4 @@
 /vendor
 /composer.lock
 /tests/Resources/*/actual/*
+composer.phar
