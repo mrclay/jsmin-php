@@ -60,8 +60,8 @@ class JSMinTest extends \PHPUnit_Framework_TestCase {
             return;
         }
 
-        $input = "function(s) {  return /^[£$€?.]/.test(s); }";
-        $expected = "function(s){return /^[£$€?.]/.test(s);}";
+        $input = 'function(s) {  return /^[£$€?.]/.test(s); }';
+        $expected = 'function(s){return/^[£$€?.]/.test(s);}';
         $this->assertEquals($expected, JSMin::minify($input));
     }
 

@@ -281,31 +281,27 @@ class JSMin {
             // we obviously aren't dividing
             return true;
         }
-
-		// we have to check for a preceding keyword, and we don't need to pattern
-		// match over the whole output.
-		$recentOutput = substr($this->output, -10);
-
-		// check if return/typeof directly precede a pattern without a space
-		foreach (array('return', 'typeof') as $keyword) {
-            if ($this->a !== substr($keyword, -1)) {
-                // certainly wasn't keyword
-                continue;
-            }
-            if (preg_match("~(^|[\\s\\S])" . substr($keyword, 0, -1) . "$~", $recentOutput, $m)) {
-                if ($m[1] === '' || !$this->isAlphaNum($m[1])) {
-                    return true;
-                }
+        $length = strlen($this->output);
+        if ($this->a === ' ' || $this->a === "\n") {
+            if ($length < 2) { // weird edge case
+                return true;
             }
         }
-
-		// check all keywords
-		if ($this->a === ' ' || $this->a === "\n") {
-			if (preg_match('~(^|[\\s\\S])(?:case|else|in|return|typeof)$~', $recentOutput, $m)) {
-				if ($m[1] === '' || !$this->isAlphaNum($m[1])) {
-					return true;
-				}
-			}
+        // you can't divide a keyword
+        // Corrected parsing of non-whitespace-separated keyword-regex occurrences
+        if (preg_match('/(?:case|else|in|return|typeof)$/', $this->output.trim($this->a), $m)) {
+            if ($this->output.trim($this->a) === $m[0]) { // odd but could happen
+                return true;
+            }
+            // make sure it's a keyword, not end of an identifier
+            $charBeforeKeyword = substr($this->output.trim($this->a), 0 - strlen($m[0]) - 1, 1);
+            if (! $this->isAlphaNum($charBeforeKeyword)) {
+                // Remove whitespace to consistently align regex after keywords.
+                if ($this->a === ' ' || $this->a === "\n") {
+            	    $this->a = '';
+                }
+                return true;
+            }
         }
 
         return false;
