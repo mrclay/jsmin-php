@@ -111,34 +111,34 @@ class JSMin {
             mb_internal_encoding('8bit');
         }
 
-    	// Remove the utf-8 BOM to save transfer bytes.
-		// Otherwise, line breaks before the 2nd comment are kept and
-		// lots of zero bytes stay, leading to additional waste and parsing
-		// exceptions.
-		$first2 = substr($this->input, 0, 2);
-		$first3 = substr($this->input, 0, 3);
-		$first4 = substr($this->input, 0, 4);
-		$encoding = 'UTF-8';
-		// Unicode BOM is U+FEFF, but after encoded, it will look like this.
-		if ($first3 == chr(0xEF).chr(0xBB).chr(0xBF)) {
-			$this->input = substr($this->input, 3);
-		} elseif ($first4 == chr(0x00).chr(0x00).chr(0xFE).chr(0xFF)) {
-			$encoding = 'UTF-32BE';
-			$this->input = substr($this->input, 4);
-		} elseif ($first4 == chr(0xFF).chr(0xFE).chr(0x00).chr(0x00)) {
-			$encoding = 'UTF-32LE';
-			$this->input = substr($this->input, 4);
-		} elseif ($first2 == chr(0xFE).chr(0xFF)) {
-			$encoding = 'UTF-16BE';
-			$this->input = substr($this->input, 2);
-		} elseif ($first2 == chr(0xFF).chr(0xFE)) {
-			$encoding = 'UTF-16LE';
-			$this->input = substr($this->input, 2);
-		}
-		// Convert only non-8-bit files.
-		if ($encoding != 'UTF-8') {
-			$this->input = mb_convert_encoding($this->input, 'UTF-8', $encoding);
-		}
+        // Remove the utf-8 BOM to save transfer bytes.
+        // Otherwise, line breaks before the 2nd comment are kept and
+        // lots of zero bytes stay, leading to additional waste and parsing
+        // exceptions.
+        $first2 = substr($this->input, 0, 2);
+        $first3 = substr($this->input, 0, 3);
+        $first4 = substr($this->input, 0, 4);
+        $encoding = 'UTF-8';
+        // Unicode BOM is U+FEFF, but after encoded, it will look like this.
+        if ($first3 == chr(0xEF).chr(0xBB).chr(0xBF)) {
+            $this->input = substr($this->input, 3);
+        } elseif ($first4 == chr(0x00).chr(0x00).chr(0xFE).chr(0xFF)) {
+            $encoding = 'UTF-32BE';
+            $this->input = substr($this->input, 4);
+        } elseif ($first4 == chr(0xFF).chr(0xFE).chr(0x00).chr(0x00)) {
+            $encoding = 'UTF-32LE';
+            $this->input = substr($this->input, 4);
+        } elseif ($first2 == chr(0xFE).chr(0xFF)) {
+            $encoding = 'UTF-16BE';
+            $this->input = substr($this->input, 2);
+        } elseif ($first2 == chr(0xFF).chr(0xFE)) {
+            $encoding = 'UTF-16LE';
+            $this->input = substr($this->input, 2);
+        }
+        // Convert only non-8-bit files.
+        if ($encoding != 'UTF-8') {
+            $this->input = mb_convert_encoding($this->input, 'UTF-8', $encoding);
+        }
 
         $this->input = str_replace("\r\n", "\n", $this->input);
         $this->inputLength = strlen($this->input);
@@ -307,12 +307,12 @@ class JSMin {
             return true;
         }
 
-		// we have to check for a preceding keyword, and we don't need to pattern
-		// match over the whole output.
-		$recentOutput = substr($this->output, -10);
+        // we have to check for a preceding keyword, and we don't need to pattern
+        // match over the whole output.
+        $recentOutput = substr($this->output, -10);
 
-		// check if return/typeof directly precede a pattern without a space
-		foreach (array('return', 'typeof') as $keyword) {
+        // check if return/typeof directly precede a pattern without a space
+        foreach (array('return', 'typeof') as $keyword) {
             if ($this->a !== substr($keyword, -1)) {
                 // certainly wasn't keyword
                 continue;
@@ -324,13 +324,13 @@ class JSMin {
             }
         }
 
-		// check all keywords
-		if ($this->a === ' ' || $this->a === "\n") {
-			if (preg_match('~(^|[\\s\\S])(?:case|else|in|return|typeof)$~', $recentOutput, $m)) {
-				if ($m[1] === '' || !$this->isAlphaNum($m[1])) {
-					return true;
-				}
-			}
+        // check all keywords
+        if ($this->a === ' ' || $this->a === "\n") {
+            if (preg_match('~(^|[\\s\\S])(?:case|else|in|return|typeof)$~', $recentOutput, $m)) {
+                if ($m[1] === '' || !$this->isAlphaNum($m[1])) {
+                    return true;
+                }
+            }
         }
 
         return false;
