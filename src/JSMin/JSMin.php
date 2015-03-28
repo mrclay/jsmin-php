@@ -298,7 +298,7 @@ class JSMin {
             if (! $this->isAlphaNum($charBeforeKeyword)) {
                 // Remove whitespace to consistently align regex after keywords.
                 if ($this->a === ' ' || $this->a === "\n") {
-            	    $this->a = '';
+                    $this->a = '';
                 }
                 return true;
             }
