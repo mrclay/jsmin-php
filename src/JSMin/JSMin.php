@@ -282,8 +282,8 @@ class JSMin {
             return true;
         }
 
-		// check if first non-ws token is "/" (see starts-regex.js)
-		$length = strlen($this->output);
+        // check if first non-ws token is "/" (see starts-regex.js)
+        $length = strlen($this->output);
         if ($this->a === ' ' || $this->a === "\n") {
             if ($length < 2) { // weird edge case
                 return true;
@@ -292,25 +292,25 @@ class JSMin {
 
         // if the "/" follows a keyword, it must be a regexp, otherwise it's best to assume division
 
-		$subject = $this->output . trim($this->a);
-		if (!preg_match('/(?:case|else|in|return|typeof)$/', $subject, $m)) {
-			// not a keyword
-			return false;
-		}
+        $subject = $this->output . trim($this->a);
+        if (!preg_match('/(?:case|else|in|return|typeof)$/', $subject, $m)) {
+            // not a keyword
+            return false;
+        }
 
-		// can't be sure it's a keyword yet (see not-regexp.js)
-		$charBeforeKeyword = substr($subject, 0 - strlen($m[0]) - 1, 1);
-		if ($this->isAlphaNum($charBeforeKeyword)) {
-			// this is really an identifier ending in a keyword, e.g. "xreturn"
-			return false;
-		}
+        // can't be sure it's a keyword yet (see not-regexp.js)
+        $charBeforeKeyword = substr($subject, 0 - strlen($m[0]) - 1, 1);
+        if ($this->isAlphaNum($charBeforeKeyword)) {
+            // this is really an identifier ending in a keyword, e.g. "xreturn"
+            return false;
+        }
 
-		// it's a regexp. Remove unneeded whitespace after keyword
-		if ($this->a === ' ' || $this->a === "\n") {
-			$this->a = '';
-		}
+        // it's a regexp. Remove unneeded whitespace after keyword
+        if ($this->a === ' ' || $this->a === "\n") {
+            $this->a = '';
+        }
 
-		return true;
+        return true;
     }
 
     /**
