@@ -452,11 +452,11 @@ class JSMin {
 
     protected function isWhiteSpace($s) {
         // https://www.ecma-international.org/ecma-262/#sec-white-space
-        return strpos(" \t\v\f\xa0", $s) !== false;
+        return $s !== null && strpos(" \t\v\f\xa0", $s) !== false;
     }
 
     protected function isLineTerminator($s) {
         // https://www.ecma-international.org/ecma-262/#sec-line-terminators
-        return strpos("\n\r", $s) !== false;
+        return $s !== null && strpos("\n\r", $s) !== false;
     }
 }
