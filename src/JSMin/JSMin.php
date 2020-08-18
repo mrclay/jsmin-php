@@ -382,7 +382,7 @@ class JSMin {
         while (true) {
             $get = $this->get();
             $comment .= $get;
-            if ($this->isLineTerminator($get)) {
+            if ($this->isEOF($get)) {
                 // if IE conditional comment
                 if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
                     $this->keptComment .= "/{$comment}";
