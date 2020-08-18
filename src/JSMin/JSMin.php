@@ -57,8 +57,6 @@ namespace JSMin;
  * @link http://code.google.com/p/jsmin-php/
  */
 class JSMin {
-    const ORD_LF            = 10;
-    const ORD_SPACE         = 32;
     const ACTION_KEEP_A     = 1;
     const ACTION_DELETE_A   = 2;
     const ACTION_DELETE_A_B = 3;
@@ -384,7 +382,7 @@ class JSMin {
         while (true) {
             $get = $this->get();
             $comment .= $get;
-            if (ord($get) <= self::ORD_LF) { // end of line reached
+            if ($this->isLineTerminator($get)) {
                 // if IE conditional comment
                 if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
                     $this->keptComment .= "/{$comment}";
