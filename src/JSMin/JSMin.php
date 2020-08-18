@@ -205,7 +205,7 @@ class JSMin {
                         if ($this->a === $this->b) { // end quote
                             break;
                         }
-                        if ($delimiter === '`' && $this->a === "\n") {
+                        if ($delimiter === '`' && $this->isLineTerminator($this->a)) {
                             // leave the newline
                         } elseif ($this->isEOF($this->a)) {
                             $byte = $this->inputIndex - 1;
@@ -285,7 +285,7 @@ class JSMin {
 
         // check if first non-ws token is "/" (see starts-regex.js)
         $length = strlen($this->output);
-        if ($this->a === ' ' || $this->a === "\n") {
+        if ($this->isWhiteSpace($this->a) || $this->isLineTerminator($this->a)) {
             if ($length < 2) { // weird edge case
                 return true;
             }
@@ -307,7 +307,7 @@ class JSMin {
         }
 
         // it's a regexp. Remove unneeded whitespace after keyword
-        if ($this->a === ' ' || $this->a === "\n") {
+        if ($this->isWhiteSpace($this->a) || $this->isLineTerminator($this->a)) {
             $this->a = '';
         }
 
