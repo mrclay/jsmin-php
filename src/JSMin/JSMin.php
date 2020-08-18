@@ -123,7 +123,7 @@ class JSMin {
         while ($this->a !== null) {
             // determine next command
             $command = self::ACTION_KEEP_A; // default
-            if ($this->a === ' ') {
+            if ($this->isWhiteSpace($this->a)) {
                 if (($this->lastByteOut === '+' || $this->lastByteOut === '-')
                         && ($this->b === $this->lastByteOut)) {
                     // Don't delete this space. If we do, the addition/subtraction
@@ -131,8 +131,8 @@ class JSMin {
                 } elseif (! $this->isAlphaNum($this->b)) {
                     $command = self::ACTION_DELETE_A;
                 }
-            } elseif ($this->a === "\n") {
-                if ($this->b === ' ') {
+            } elseif ($this->isLineTerminator($this->a)) {
+                if ($this->isWhiteSpace($this->b)) {
                     $command = self::ACTION_DELETE_A_B;
 
                     // in case of mbstring.func_overload & 2, must check for null b,
@@ -143,8 +143,8 @@ class JSMin {
                     $command = self::ACTION_DELETE_A;
                 }
             } elseif (! $this->isAlphaNum($this->a)) {
-                if ($this->b === ' '
-                    || ($this->b === "\n"
+                if ($this->isWhiteSpace($this->b)
+                    || ($this->isLineTerminator($this->b)
                         && (false === strpos('}])+-"\'', $this->a)))) {
                     $command = self::ACTION_DELETE_A_B;
                 }
@@ -349,7 +349,7 @@ class JSMin {
      */
     protected function isEOF($a)
     {
-        return ord($a) <= self::ORD_LF;
+        return $a === null || $this->isLineTerminator($a);
     }
 
     /**
@@ -450,5 +450,15 @@ class JSMin {
             }
         }
         return $get;
+    }
+
+    protected function isWhiteSpace($s) {
+        // https://www.ecma-international.org/ecma-262/#sec-white-space
+        return strpos(" \t\v\f\xa0", $s) !== false;
+    }
+
+    protected function isLineTerminator($s) {
+        // https://www.ecma-international.org/ecma-262/#sec-line-terminators
+        return strpos("\n\r", $s) !== false;
     }
 }
