@@ -47,7 +47,7 @@ class JSMinTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testWhitespace() {
-		$this->assertEquals("hello;", JSMin::minify("\r\n\r\n \t\v\f\xa0hello;\r\n"));
+		$this->assertEquals("hello;", JSMin::minify("\r\n\r\n \t\v\fhello;\r\n"));
 	}
 
 	public function testBomRemoval() {

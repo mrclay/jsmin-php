@@ -452,7 +452,7 @@ class JSMin {
 
     protected function isWhiteSpace($s) {
         // https://www.ecma-international.org/ecma-262/#sec-white-space
-        return $s !== null && strpos(" \t\v\f\xa0", $s) !== false;
+        return $s !== null && strpos(" \t\v\f", $s) !== false;
     }
 
     protected function isLineTerminator($s) {
