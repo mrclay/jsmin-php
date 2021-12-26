@@ -22,7 +22,7 @@
 		"issues": "https://github.com/mrclay/jsmin-php/issues"
 	},
 	"require": {
-		"php": ">=5.3.0",
+		"php": ">=7.3",
 		"ext-pcre": "*"
 	},
     "require-dev": {

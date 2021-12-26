@@ -80,7 +80,7 @@ class JSMin {
      *
      * @return string
      */
-    public static function minify($js)
+    public static function minify(string $js): string
     {
         $jsmin = new JSMin($js);
         return $jsmin->min();
@@ -89,7 +89,7 @@ class JSMin {
     /**
      * @param string $input
      */
-    public function __construct($input)
+    public function __construct(string $input)
     {
         $this->input = $input;
     }
@@ -99,7 +99,7 @@ class JSMin {
      *
      * @return string
      */
-    public function min()
+    public function min(): string
     {
         if ($this->output !== '') { // min already run
             return $this->output;
@@ -167,7 +167,7 @@ class JSMin {
      * @param int $command
      * @throws UnterminatedRegExpException|UnterminatedStringException
      */
-    protected function action($command)
+    protected function action(int $command): void
     {
         // make sure we don't compress "a + ++b" to "a+++b", etc.
         if ($command === self::ACTION_DELETE_A_B
@@ -278,7 +278,7 @@ class JSMin {
     /**
      * @return bool
      */
-    protected function isRegexpLiteral()
+    protected function isRegexpLiteral(): bool
     {
         if (false !== strpos("(,=:[!&|?+-~*{;", $this->a)) {
             // we can't divide after these tokens
@@ -320,9 +320,9 @@ class JSMin {
      * Return the next character from stdin. Watch out for lookahead. If the character is a control character,
      * translate it to a space or linefeed.
      *
-     * @return string
+     * @return string|null
      */
-    protected function get()
+    protected function get(): ?string
     {
         $c = $this->lookAhead;
         $this->lookAhead = null;
@@ -347,10 +347,10 @@ class JSMin {
     /**
      * Does $a indicate end of input?
      *
-     * @param string $a
+     * @param string|null $a
      * @return bool
      */
-    protected function isEOF($a)
+    protected function isEOF(?string $a): bool
     {
         return ord($a) <= self::ORD_LF;
     }
@@ -358,9 +358,9 @@ class JSMin {
     /**
      * Get next char (without getting it). If is ctrl character, translate to a space or newline.
      *
-     * @return string
+     * @return string|null
      */
-    protected function peek()
+    protected function peek(): ?string
     {
         $this->lookAhead = $this->get();
         return $this->lookAhead;
@@ -373,7 +373,7 @@ class JSMin {
      *
      * @return bool
      */
-    protected function isAlphaNum($c)
+    protected function isAlphaNum(string $c): bool
     {
         return (preg_match('/^[a-z0-9A-Z_\\$\\\\]$/', $c) || ord($c) > 126);
     }
@@ -381,7 +381,7 @@ class JSMin {
     /**
      * Consume a single line comment from input (possibly retaining it)
      */
-    protected function consumeSingleLineComment()
+    protected function consumeSingleLineComment(): void
     {
         $comment = '';
         while (true) {
@@ -402,7 +402,7 @@ class JSMin {
      *
      * @throws UnterminatedCommentException
      */
-    protected function consumeMultipleLineComment()
+    protected function consumeMultipleLineComment(): void
     {
         $this->get();
         $comment = '';
@@ -435,9 +435,9 @@ class JSMin {
     /**
      * Get the next character, skipping over comments. Some comments may be preserved.
      *
-     * @return string
+     * @return string|null
      */
-    protected function next()
+    protected function next(): ?string
     {
         $get = $this->get();
         if ($get === '/') {
