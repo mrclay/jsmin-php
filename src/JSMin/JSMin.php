@@ -18,7 +18,7 @@ namespace JSMin;
  *
  * Preserves multi-line comments that begin with /*!
  *
- * PHP 5 or higher is required.
+ * PHP 7 or higher is required.
  *
  * Permission is hereby granted to use this version of the library under the
  * same terms as jsmin.c, which has the following license:
@@ -57,6 +57,7 @@ namespace JSMin;
  * @link http://code.google.com/p/jsmin-php/
  */
 class JSMin {
+    /** @deprecated deprecated JSMin ORD_LF constant newer than 2.4 version */
     const ORD_LF            = 10;
     const ORD_SPACE         = 32;
     const ACTION_KEEP_A     = 1;
@@ -123,7 +124,7 @@ class JSMin {
         while ($this->a !== null) {
             // determine next command
             $command = self::ACTION_KEEP_A; // default
-            if ($this->a === ' ') {
+            if ($this->isWhiteSpace($this->a)) {
                 if (($this->lastByteOut === '+' || $this->lastByteOut === '-')
                         && ($this->b === $this->lastByteOut)) {
                     // Don't delete this space. If we do, the addition/subtraction
@@ -131,8 +132,8 @@ class JSMin {
                 } elseif (! $this->isAlphaNum($this->b)) {
                     $command = self::ACTION_DELETE_A;
                 }
-            } elseif ($this->a === "\n") {
-                if ($this->b === ' ') {
+            } elseif ($this->isLineTerminator($this->a)) {
+                if ($this->isWhiteSpace($this->b)) {
                     $command = self::ACTION_DELETE_A_B;
 
                     // in case of mbstring.func_overload & 2, must check for null b,
@@ -143,8 +144,8 @@ class JSMin {
                     $command = self::ACTION_DELETE_A;
                 }
             } elseif (! $this->isAlphaNum($this->a)) {
-                if ($this->b === ' '
-                    || ($this->b === "\n"
+                if ($this->isWhiteSpace($this->b)
+                    || ($this->isLineTerminator($this->b)
                         && (false === strpos('}])+-"\'', $this->a)))) {
                     $command = self::ACTION_DELETE_A_B;
                 }
@@ -207,7 +208,7 @@ class JSMin {
                         if ($this->a === $this->b) { // end quote
                             break;
                         }
-                        if ($delimiter === '`' && $this->a === "\n") {
+                        if ($delimiter === '`' && $this->isLineTerminator($this->a)) {
                             // leave the newline
                         } elseif ($this->isEOF($this->a)) {
                             $byte = $this->inputIndex - 1;
@@ -287,7 +288,7 @@ class JSMin {
 
         // check if first non-ws token is "/" (see starts-regex.js)
         $length = strlen($this->output);
-        if ($this->a === ' ' || $this->a === "\n") {
+        if ($this->isWhiteSpace($this->a) || $this->isLineTerminator($this->a)) {
             if ($length < 2) { // weird edge case
                 return true;
             }
@@ -309,7 +310,7 @@ class JSMin {
         }
 
         // it's a regexp. Remove unneeded whitespace after keyword
-        if ($this->a === ' ' || $this->a === "\n") {
+        if ($this->isWhiteSpace($this->a) || $this->isLineTerminator($this->a)) {
             $this->a = '';
         }
 
@@ -341,7 +342,7 @@ class JSMin {
         if ($c === "\r") {
             return "\n";
         }
-        return ' ';
+        return $c;
     }
 
     /**
@@ -352,7 +353,7 @@ class JSMin {
      */
     protected function isEOF(?string $a): bool
     {
-        return ord($a) <= self::ORD_LF;
+        return $a === null || $this->isLineTerminator($a);
     }
 
     /**
@@ -387,7 +388,7 @@ class JSMin {
         while (true) {
             $get = $this->get();
             $comment .= $get;
-            if (ord($get) <= self::ORD_LF) { // end of line reached
+            if ($this->isEOF($get)) {
                 // if IE conditional comment
                 if (preg_match('/^\\/@(?:cc_on|if|elif|else|end)\\b/', $comment)) {
                     $this->keptComment .= "/{$comment}";
@@ -453,5 +454,17 @@ class JSMin {
             }
         }
         return $get;
+    }
+    
+    protected function isWhiteSpace(?string $s): bool
+    {
+        // https://www.ecma-international.org/ecma-262/#sec-white-space
+        return $s !== null && strpos(" \t\v\f", $s) !== false;
+    }
+
+    protected function isLineTerminator(?string $s): bool
+    {
+        // https://www.ecma-international.org/ecma-262/#sec-line-terminators
+        return $s !== null && strpos("\n\r", $s) !== false;
     }
 }
