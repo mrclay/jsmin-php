@@ -4,3 +4,4 @@
 /composer.lock
 /tests/Resources/*/actual/*
 composer.phar
+.phpunit.result.cache
