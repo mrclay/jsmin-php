@@ -34,28 +34,31 @@ use PHPUnit\Framework\TestCase;
  */
 class JSMinTest extends TestCase {
 
-	/**
-	 * @group minify
-	 * @dataProvider minifyProvider
-	 */
-	public function testMinify($testName, $input, $expected, $actualFile)
-	{
-		$actual = JSMin::minify($input);
-		if ($actual !== $expected && is_writable(dirname($actualFile))) {
-			file_put_contents($actualFile, $actual);
-		}
-		$this->assertEquals($expected, $actual, 'Running Minify Test: ' . $testName);
-	}
+    /**
+     * @group minify
+     * @dataProvider minifyProvider
+     */
+    public function testMinify($testName, $input, $expected, $actualFile)
+    {
+        $actual = JSMin::minify($input);
+        if ($actual !== $expected && is_writable(dirname($actualFile))) {
+            file_put_contents($actualFile, $actual);
+        }
+        $this->assertEquals($expected, $actual, 'Running Minify Test: ' . $testName);
+    }
 
-	public function testWhitespace() {
-		$this->assertEquals("hello;", JSMin::minify("\r\n\r\nhello;\r\n"));
-	}
+    public function testWhitespace()
+    {
+        $this->assertEquals("hello;", JSMin::minify("\r\n\r\nhello;\r\n"));
+    }
 
-	public function testBomRemoval() {
+    public function testBomRemoval()
+    {
         $this->assertEquals("hello;", JSMin::minify("\xEF\xBB\xBFhello;"));
-	}
+    }
 
-    public function testFuncOverload() {
+    public function testFuncOverload()
+    {
         if (!function_exists('mb_strlen') || !((int)ini_get('mbstring.func_overload') & 2)) {
             $this->markTestIncomplete('Cannot be tested unless mbstring.func_overload is used');
             return;
@@ -69,7 +72,8 @@ class JSMinTest extends TestCase {
     /**
      * @dataProvider exceptionProvider
      */
-    public function testExpections($input, $label, $expClass, $expMessage) {
+    public function testExpections($input, $label, $expClass, $expMessage)
+    {
         $eClass = $eMsg = '';
         try {
             JSMin::minify($input);
@@ -83,7 +87,8 @@ class JSMinTest extends TestCase {
         );
     }
 
-    public function exceptionProvider() {
+    public function exceptionProvider()
+    {
         return array(
             array(
                 '"Hello'
@@ -123,47 +128,47 @@ class JSMinTest extends TestCase {
         );
     }
 
-	/**
-	 * This function loads all of the test cases from the specified group.
-	 * Groups are created simply by populating the appropriate directories:
-	 *
-	 *    /tests/Resources/GROUPNAME/input/
-	 *    /tests/Resources/GROUPNAME/output/
-	 *
-	 * Each test case should have two identically named files, with the raw
-	 * javascript going in the test folder and the expected results to be in
-	 * the output folder.
-	 *
-	 * @param $group string
-	 * @return array
-	 */
-	public function getTestFiles($group)
-	{
-		$baseDir = __DIR__ . '/../../Resources/' . $group . '/';
-		$testDir = $baseDir . 'input/';
-		$expectDir = $baseDir . 'expected/';
-		$actualDir = $baseDir . 'actual/';
+    /**
+     * This function loads all of the test cases from the specified group.
+     * Groups are created simply by populating the appropriate directories:
+     *
+     *    /tests/Resources/GROUPNAME/input/
+     *    /tests/Resources/GROUPNAME/output/
+     *
+     * Each test case should have two identically named files, with the raw
+     * javascript going in the test folder and the expected results to be in
+     * the output folder.
+     *
+     * @param $group string
+     * @return array
+     */
+    public function getTestFiles($group)
+    {
+        $baseDir = __DIR__ . '/../../Resources/' . $group . '/';
+        $testDir = $baseDir . 'input/';
+        $expectDir = $baseDir . 'expected/';
+        $actualDir = $baseDir . 'actual/';
 
-		$returnData = array();
+        $returnData = array();
 
-		$testFiles = scandir($testDir);
-		foreach ($testFiles as $testFile) {
-			if (substr($testFile, -3) !== '.js' || !file_exists(($expectDir . $testFile))) {
-				continue;
-			}
+        $testFiles = scandir($testDir);
+        foreach ($testFiles as $testFile) {
+            if (substr($testFile, -3) !== '.js' || !file_exists(($expectDir . $testFile))) {
+                continue;
+            }
 
-			$testInput = file_get_contents($testDir . $testFile);
-			$expectedOutput = file_get_contents($expectDir . $testFile);
-			$actualFile = $actualDir . $testFile;
+            $testInput = file_get_contents($testDir . $testFile);
+            $expectedOutput = file_get_contents($expectDir . $testFile);
+            $actualFile = $actualDir . $testFile;
 
-			$returnData[] = array($testFile, $testInput, $expectedOutput, $actualFile);
-		}
+            $returnData[] = array($testFile, $testInput, $expectedOutput, $actualFile);
+        }
 
-		return $returnData;
-	}
+        return $returnData;
+    }
 
-	public function minifyProvider()
-	{
-		return $this->getTestFiles('minify');
-	}
+    public function minifyProvider()
+    {
+        return $this->getTestFiles('minify');
+    }
 }

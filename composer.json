@@ -1,34 +1,34 @@
 {
-	"name": "mrclay/jsmin-php",
-	"type": "library",
-	"description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessary whitespace from JavaScript files.",
-    "keywords": ["jsmin", "minify", "compress"],
-	"homepage": "https://github.com/mrclay/jsmin-php/",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Stephen Clay",
-			"email": "steve@mrclay.org",
-			"role": "Developer"
-		},
-        {
-            "name": "Ryan Grove",
-            "email": "ryan@wonko.com",
-            "role": "Developer"
-        }
-	],
-	"support": {
-		"email": "minify@googlegroups.com",
-		"issues": "https://github.com/mrclay/jsmin-php/issues"
-	},
-	"require": {
-		"php": ">=7.3",
-		"ext-pcre": "*"
-	},
-    "require-dev": {
-        "phpunit/phpunit": "^9"
+  "name": "mrclay/jsmin-php",
+  "type": "library",
+  "description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessary whitespace from JavaScript files.",
+  "keywords": ["jsmin", "minify", "compress"],
+  "homepage": "https://github.com/mrclay/jsmin-php/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stephen Clay",
+      "email": "steve@mrclay.org",
+      "role": "Developer"
     },
-	"autoload": {
-        "psr-0": {"JSMin\\": "src/"}
-	}
+    {
+      "name": "Ryan Grove",
+      "email": "ryan@wonko.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "minify@googlegroups.com",
+    "issues": "https://github.com/mrclay/jsmin-php/issues"
+  },
+  "require": {
+    "php": ">=7.3",
+    "ext-pcre": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-0": {"JSMin\\": "src/"}
+  }
 }

@@ -455,7 +455,7 @@ class JSMin {
         }
         return $get;
     }
-    
+
     protected function isWhiteSpace(?string $s): bool
     {
         // https://www.ecma-international.org/ecma-262/#sec-white-space
