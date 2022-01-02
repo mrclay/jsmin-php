@@ -59,7 +59,9 @@ namespace JSMin;
 class JSMin {
     /** @deprecated deprecated JSMin ORD_LF constant newer than 2.4 version */
     const ORD_LF            = 10;
+    /** @deprecated deprecated JSMin ORD_LF constant newer than 2.4 version */
     const ORD_SPACE         = 32;
+
     const ACTION_KEEP_A     = 1;
     const ACTION_DELETE_A   = 2;
     const ACTION_DELETE_A_B = 3;
@@ -335,9 +337,6 @@ class JSMin {
             } else {
                 $c = null;
             }
-        }
-        if (ord($c) >= self::ORD_SPACE || $c === "\n" || $c === null) {
-            return $c;
         }
         if ($c === "\r") {
             return "\n";
