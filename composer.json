@@ -1,5 +1,5 @@
 {
-	"name": "mrclay/jsmin-php",
+	"name": "pradosoft/jsmin-php",
 	"type": "library",
 	"description": "Provides a modified port of Douglas Crockford's jsmin.c, which removes unnecessary whitespace from JavaScript files.",
     "keywords": ["jsmin", "minify", "compress"],
