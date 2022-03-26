@@ -1,5 +1,11 @@
 JSMin fixes
 
+Version 2.4.1
+    * Fix php 8.1 deprecation notice for ord(null)
+
+Version 2.4.0
+    * Preserve ES6 template literals
+
 Version 2.3.2
     * Correctly identifies regexes following keywords with no space. E.g. return/regex/;
 
