@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.3.0 - 2014-08-25
 
+Rework as JSMin library on packagist.
+Releases prior this version are contained in minify package.
+
 * Removes leading UTF-8 BOM
 
 ## 2.2.0
