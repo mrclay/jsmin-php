@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\JSMin;
+namespace JSMin\Test;
 
 use JSMin\JSMin;
-use JSMin\Test\TestCase;
 
 /**
  * Copyright (c) 2009, Robert Hafner
@@ -139,7 +138,7 @@ class JSMinTest extends TestCase {
 	 */
 	public function getTestFiles($group)
 	{
-		$baseDir = __DIR__ . '/../../Resources/' . $group . '/';
+		$baseDir = __DIR__ . '/Resources/' . $group . '/';
 		$testDir = $baseDir . 'input/';
 		$expectDir = $baseDir . 'expected/';
 		$actualDir = $baseDir . 'actual/';
