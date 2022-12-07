@@ -145,7 +145,7 @@ class JSMin {
             } elseif (! $this->isAlphaNum($this->a)) {
                 if ($this->b === ' '
                     || ($this->b === "\n"
-                        && (false === strpos('}])+-"\'', $this->a)))) {
+                        && (false === strpos('}])+-"\'`', $this->a)))) {
                     $command = self::ACTION_DELETE_A_B;
                 }
             }
