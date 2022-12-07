@@ -143,7 +143,7 @@ class JSMin {
             } elseif (! $this->isAlphaNum($this->a)) {
                 if ($this->isWhiteSpace($this->b)
                     || ($this->isLineTerminator($this->b)
-                        && (false === strpos('}])+-"\'', $this->a)))) {
+                        && (false === strpos('}])+-"\'`', $this->a)))) {
                     $command = self::ACTION_DELETE_A_B;
                 }
             }
