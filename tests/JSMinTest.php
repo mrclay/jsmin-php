@@ -57,7 +57,6 @@ class JSMinTest extends TestCase {
     public function testFuncOverload() {
         if (!function_exists('mb_strlen') || !((int)ini_get('mbstring.func_overload') & 2)) {
             $this->markTestIncomplete('Cannot be tested unless mbstring.func_overload is used');
-            return;
         }
 
         $input = 'function(s) {  return /^[£$€?.]/.test(s); }';
