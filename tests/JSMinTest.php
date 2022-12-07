@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\JSMin;
+namespace JSMin\Test;
 
 use JSMin\JSMin;
 
@@ -31,7 +31,7 @@ use JSMin\JSMin;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-class JSMinTest extends \PHPUnit_Framework_TestCase {
+class JSMinTest extends TestCase {
 
 	/**
 	 * @group minify
@@ -138,7 +138,7 @@ class JSMinTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function getTestFiles($group)
 	{
-		$baseDir = __DIR__ . '/../../Resources/' . $group . '/';
+		$baseDir = __DIR__ . '/Resources/' . $group . '/';
 		$testDir = $baseDir . 'input/';
 		$expectDir = $baseDir . 'expected/';
 		$actualDir = $baseDir . 'actual/';
