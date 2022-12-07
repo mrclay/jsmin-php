@@ -3,6 +3,7 @@
 namespace Tests\JSMin;
 
 use JSMin\JSMin;
+use JSMin\Test\TestCase;
 
 /**
  * Copyright (c) 2009, Robert Hafner
@@ -31,7 +32,7 @@ use JSMin\JSMin;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-class JSMinTest extends \PHPUnit_Framework_TestCase {
+class JSMinTest extends TestCase {
 
 	/**
 	 * @group minify
