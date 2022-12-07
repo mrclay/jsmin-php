@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 * Improve control character handling, #9
+* Fix PHP Deprecation warning: ord(null), #16
 
 ## 2.4.1 - 2022-03-26
 
