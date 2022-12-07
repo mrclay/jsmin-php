@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.4.1 - 2022-03-26
 
-* Fix php 8.1 deprecation notice for ord(null), #12
+* Fix php 8.1 deprecation notice for ord(null), #10, #12, #13
 
 ## 2.4.0 - 2018-12-06
 
