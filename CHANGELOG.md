@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.4.1 - 2022-03-26
 
-* Fix php 8.1 deprecation notice for ord(null)
+* Fix php 8.1 deprecation notice for ord(null), #12
 
 ## 2.4.0 - 2018-12-06
 
-* Preserve ES6 template literals
+* Preserve ES6 template literals, #7
 
 ## 2.3.2 - 2015-03-30
 
