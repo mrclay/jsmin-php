@@ -109,9 +109,8 @@ class JSMin {
             mb_internal_encoding('8bit');
         }
 
-        if (isset($this->input[0]) && $this->input[0] === "\xef") {
-            $this->input = substr($this->input, 3);
-        }
+        // Encode the input string, taking the UTF-8 BOM into account
+        $this->input = EncodingDetector::decode($this->input);
 
         $this->input = str_replace("\r\n", "\n", $this->input);
         $this->inputLength = strlen($this->input);
